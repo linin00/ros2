@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project(demo)
+link_directories(/home/pi/codefield/build/lidar/lidar)
+add_executable(demo demo.cpp)
+find_package(ydlidar_sdk REQUIRED)
+target_link_libraries(demo lidar ${YDLIDAR_SDK_LIBRARIES})

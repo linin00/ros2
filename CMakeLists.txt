@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.8)
+project(robot)
+
+add_definitions(-std=c++11)
+set(apps_dir ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+file(GLOB apps ${apps_dir}/*.cpp)
+add_subdirectory(ros2)
+add_subdirectory(lidar)
+add_subdirectory(src/demo)
+foreach(app ${apps})
+  string(REPLACE "${apps_dir}/" "" app_name ${app})
+  string(REPLACE ".cpp" "" app_name ${app_name})
+  add_executable(${app_name} ${app})
+endforeach()

@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 2.8)
+project(lidar)
+add_definitions(-std=c++11)
+find_package(ydlidar_sdk REQUIRED)
+
+include_directories(${YDLIDAR_SDK_INCLUDE_DIRS})
+add_library(${PROJECT_NAME} STATIC scan.cpp)
+link_directories(${YDLIDAR_SDK_LIBRARY_DIRS})
+target_link_libraries(${PROJECT_NAME} ${YDLIDAR_SDK_LIBRARIES})
