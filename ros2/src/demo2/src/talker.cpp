@@ -1,5 +1,5 @@
 #include "rclcpp/rclcpp.hpp"
-#include "node.h"
+#include "demo2_node.h"
 
 int main(int argc, char **argv)
 {
