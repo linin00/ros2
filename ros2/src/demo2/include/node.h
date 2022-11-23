@@ -9,7 +9,7 @@ using namespace std::chrono_literals;
 class TalkerNode : public rclcpp::Node {
 public:
     TalkerNode(std::string name) : Node(name) {
-        RCLCPP_INFO(this->get_logger(), "hello world!");
+        RCLCPP_INFO(this->get_logger(), "%s initialized!", name.c_str());
         this->talk = this->create_publisher<std_msgs::msg::String>("test", 10);
         timer_ = this->create_wall_timer(
             500ms, std::bind(&TalkerNode::timer_callback, this));
@@ -28,12 +28,12 @@ private:
 class ListenerNode : public rclcpp::Node {
 public:
     ListenerNode(std::string name) : Node(name) {
-        RCLCPP_INFO(this->get_logger(), "hello world!");
+        RCLCPP_INFO(this->get_logger(), "%s initialized!", name.c_str());
         this->listen = this->create_subscription<std_msgs::msg::String>("test", 10, std::bind(&ListenerNode::topic_callback, this, _1));
     }
 private:
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr listen;
     void topic_callback(const std_msgs::msg::String::SharedPtr msg) {
-        RCLCPP_INFO(this->get_logger(), "朕已阅：'%s'", msg->data.c_str());
+        RCLCPP_INFO(this->get_logger(), "Recieved：'%s'", msg->data.c_str());
     }
 };
