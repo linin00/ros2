@@ -45,3 +45,7 @@ add_executable(color_image src/color_image.cpp)
 ament_target_dependencies(color_image "rclcpp" "sensor_msgs")
 install(TARGETS color_image DESTINATION lib/${PROJECT_NAME})
 
+add_executable(depth_image src/depth_image.cpp)
+ament_target_dependencies(depth_image "rclcpp" "sensor_msgs")
+install(TARGETS depth_image DESTINATION lib/${PROJECT_NAME})
+
