@@ -19,6 +19,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(realsense2_camera_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -39,4 +40,8 @@ include_directories(include)
 add_executable(listener src/listener.cpp)
 ament_target_dependencies(listener "rclcpp" "realsense2_camera_msgs")
 install(TARGETS listener DESTINATION lib/${PROJECT_NAME})
+
+add_executable(color_image src/color_image.cpp)
+ament_target_dependencies(color_image "rclcpp" "sensor_msgs")
+install(TARGETS color_image DESTINATION lib/${PROJECT_NAME})
 
