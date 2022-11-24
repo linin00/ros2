@@ -1,7 +1,7 @@
 /*** 
  * @Author: linin00
  * @Date: 2022-11-24 08:42:54
- * @LastEditTime: 2022-11-24 08:44:46
+ * @LastEditTime: 2022-11-24 09:26:11
  * @LastEditors: linin00
  * @Description: 
  * @FilePath: /ros2/ros2/src/camera/src/depth_image.cpp
@@ -10,7 +10,7 @@
 #include "sensor_msgs/msg/image.hpp"
 #include "rclcpp/rclcpp.hpp"
 static void handler(sensor_msgs::msg::Image::SharedPtr msg) {
-  printf("[YDLIDAR INFO]: I get a depth image:\n height:%d, width:%d\n", msg.get()->height, msg.get()->width);
+  printf("[CAMERA INFO]: I get a depth image:\n height:%d, width:%d\n", msg.get()->height, msg.get()->width);
 }
 int main(int argc, char ** argv) {
   rclcpp::init(argc, argv);

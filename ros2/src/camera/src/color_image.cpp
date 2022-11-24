@@ -1,7 +1,7 @@
 /*** 
  * @Author: linin00
  * @Date: 2022-11-24 08:30:42
- * @LastEditTime: 2022-11-24 08:44:34
+ * @LastEditTime: 2022-11-24 09:26:20
  * @LastEditors: linin00
  * @Description: 
  * @FilePath: /ros2/ros2/src/camera/src/color_image.cpp
@@ -10,7 +10,7 @@
 #include "sensor_msgs/msg/image.hpp"
 #include "rclcpp/rclcpp.hpp"
 static void handler(sensor_msgs::msg::Image::SharedPtr msg) {
-  printf("[YDLIDAR INFO]: I get a color image:\n height:%d, width:%d\n", msg.get()->height, msg.get()->width);
+  printf("[CAMERA INFO]: I get a color image:\n height:%d, width:%d\n", msg.get()->height, msg.get()->width);
 }
 int main(int argc, char ** argv) {
   rclcpp::init(argc, argv);
