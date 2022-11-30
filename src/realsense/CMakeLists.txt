@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(camera)
+project(realsense)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -37,9 +37,6 @@ endif()
 
 ament_package()
 include_directories(include)
-add_executable(listener src/listener.cpp)
-ament_target_dependencies(listener "rclcpp" "realsense2_camera_msgs")
-install(TARGETS listener DESTINATION lib/${PROJECT_NAME})
 
 add_executable(color_image src/color_image.cpp)
 ament_target_dependencies(color_image "rclcpp" "sensor_msgs")

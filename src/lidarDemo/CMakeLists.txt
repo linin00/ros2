@@ -4,8 +4,6 @@ project(lidarDemo)
 
 add_definitions(-std=c++11) # Use C++11
 find_package(ydlidar_sdk REQUIRED)
-message("\nydldar_sdk_include_dirs:\n${YDLIDAR_SDK_INCLUDE_DIRS}\n")
-message("\nydlidar_sdk_libraries:\n${YDLIDAR_SDK_LIBRARIES}\n")
 include_directories(
   ${YDLIDAR_SDK_INCLUDE_DIRS}
 )
