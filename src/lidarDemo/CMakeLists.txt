@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(lidar)
+project(lidarDemo)
 
 add_definitions(-std=c++11) # Use C++11
 find_package(ydlidar_sdk REQUIRED)
@@ -15,7 +15,8 @@ file(GLOB APP_LIST "${lidar_demo_dir}/*.cpp")
 foreach(child ${APP_LIST})
   string(REPLACE "${lidar_demo_dir}/" "" app_main ${child})
   string(REPLACE ".cpp" "" APP_NAME ${app_main})
-  add_executable(${PROJECT_NAME}-${APP_NAME} ${app_main})
+  add_executable(${APP_NAME} ${app_main})
   link_directories(${YDLIDAR_SDK_LIBRARY_DIRS})
-  target_link_libraries(${PROJECT_NAME}-${APP_NAME} ${YDLIDAR_SDK_LIBRARIES})
+  target_link_libraries(${APP_NAME} ${YDLIDAR_SDK_LIBRARIES})
+  install(TARGETS ${APP_NAME} DESTINATION lib/${PROJECT_NAME})
 endforeach()
