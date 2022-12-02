@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ydlidar)
+project(demo)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -15,16 +15,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-link_directories(/usr/local/lib/ydlidar)
-include_directories(/usr/local/include/ydlidar/include)
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# find_package(ydlidar_driver REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(rclcpp REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -38,13 +35,7 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-# include_directories(${ydlidar_driver_INCLUDE_DIRS})
-# add_library(scan STATIC src/scan.cpp)
-# ament_target_dependencies(scan ydlidar_driver)
-# install(TARGETS scan DESTINATION lib/scan)
 
-add_executable(ydlidar_node src/ydlidar_node.cpp)
-ament_target_dependencies(ydlidar_node "rclcpp" "sensor_msgs")
-target_link_libraries(ydlidar_node "ydlidar_driver")
-install(TARGETS ydlidar_node DESTINATION lib/${PROJECT_NAME})
-
+add_executable(listen_scan src/listen_scan.cpp)
+ament_target_dependencies(listen_scan "rclcpp" "sensor_msgs")
+install(TARGETS listen_scan DESTINATION lib/${PROJECT_NAME})
