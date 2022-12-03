@@ -1,12 +1,3 @@
-/*
- * scout_robot_demo.cpp
- *
- * Created on: Jul 08, 2021 11:12
- * Description:
- *
- * Copyright (c) 2021 Weston Robot Pte. Ltd.
- */
-
 #include <unistd.h>
 
 #include <memory>

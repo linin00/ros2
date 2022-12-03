@@ -23,6 +23,7 @@ find_package(ament_cmake REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(Threads REQUIRED) # 小车底盘控制需要
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -43,7 +44,15 @@ ament_target_dependencies(lidar_client_demo "rclcpp" "sensor_msgs")
 add_executable(imu_client_demo src/imu_client_demo.cpp)
 ament_target_dependencies(imu_client_demo rclcpp std_msgs sensor_msgs)
 
+# 小车底盘控制
+include_directories(/usr/local/include/)
+link_directories(/usr/local/lib)
+add_executable(robot_demo src/robot_demo.cpp)
+target_link_libraries(robot_demo ugv_sdk Threads::Threads)
+target_compile_definitions(robot_demo PUBLIC ASIO_ENABLE_OLD_SERVICES)
+
 install(TARGETS
         lidar_client_demo
         imu_client_demo
+        robot_demo
         DESTINATION lib/${PROJECT_NAME})
