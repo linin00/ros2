@@ -44,7 +44,6 @@ class IMUPublisher : public rclcpp::Node
 		{
 			auto imu_data = sensor_msgs::msg::Imu();
 			int n = read(fd, buf, sizeof(buf));
-			printf("timer test %d\n", n);
 
 			for(int i = 0; i < n; i++)
 			{
