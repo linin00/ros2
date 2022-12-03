@@ -22,6 +22,7 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -36,6 +37,13 @@ endif()
 
 ament_package()
 
-add_executable(listen_scan src/listen_scan.cpp)
-ament_target_dependencies(listen_scan "rclcpp" "sensor_msgs")
-install(TARGETS listen_scan DESTINATION lib/${PROJECT_NAME})
+add_executable(lidar_client_demo src/lidar_client_demo.cpp)
+ament_target_dependencies(lidar_client_demo "rclcpp" "sensor_msgs")
+
+add_executable(imu_client_demo src/imu_client_demo.cpp)
+ament_target_dependencies(imu_client_demo rclcpp std_msgs sensor_msgs)
+
+install(TARGETS
+        lidar_client_demo
+        imu_client_demo
+        DESTINATION lib/${PROJECT_NAME})

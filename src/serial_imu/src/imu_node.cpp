@@ -13,7 +13,7 @@ extern "C"{
 
 #include "ch_serial.h"
 
-#define IMU_SERIAL  ("/dev/ttyUSB0")
+#define IMU_SERIAL  ("/dev/ttyUSB1")
 #define BAUD        (B115200)
 #define GRA_ACC     (9.8)
 #define DEG_TO_RAD  (0.01745329)
@@ -36,6 +36,7 @@ class IMUPublisher : public rclcpp::Node
 			fd = open_serial();
 			imu_pub = this->create_publisher<sensor_msgs::msg::Imu>("/Imu_data", 20);
 			timer_ = this->create_wall_timer(2ms, std::bind(&IMUPublisher::timer_callback, this));
+			printf("talker initialized\n");
 		}
 
 	private: 
@@ -43,6 +44,7 @@ class IMUPublisher : public rclcpp::Node
 		{
 			auto imu_data = sensor_msgs::msg::Imu();
 			int n = read(fd, buf, sizeof(buf));
+			printf("timer test %d\n", n);
 
 			for(int i = 0; i < n; i++)
 			{
