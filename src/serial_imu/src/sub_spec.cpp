@@ -68,7 +68,7 @@ int main(int argc,const char* argv[])
 	rclcpp::init(argc, argv);
 	nh = std::make_shared<rclcpp::Node>("imu_sub");
 	rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_sub ;
-	imu_sub = nh->create_subscription<sensor_msgs::msg::Imu>("Imu_data", 10,topic_callback);
+	imu_sub = nh->create_subscription<sensor_msgs::msg::Imu>("/Imu_data", 10,topic_callback);
 	rclcpp::spin(nh);
 	rclcpp::shutdown();
 
