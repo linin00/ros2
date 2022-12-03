@@ -43,5 +43,5 @@ add_executable(demo src/demo.cpp)
 target_link_libraries(demo ugv_sdk Threads::Threads)
 target_compile_definitions(demo PUBLIC ASIO_ENABLE_OLD_SERVICES)
 
-install(TARGETS demo DESTINATION bin/${PROJECT_NAME})
+install(TARGETS demo DESTINATION lib/${PROJECT_NAME})
 
