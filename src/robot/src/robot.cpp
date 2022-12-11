@@ -114,19 +114,19 @@ static void handler(geometry_msgs::msg::Twist::SharedPtr msg) {
 }
 
 int main(int argc, char ** argv) {
-  // std::cout << "Light: const off" << std::endl;
-  // bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
-  // sleep(3);
-  // std::cout << "Light: const on" << std::endl;
-  // bot.SetLightCommand(CONST_ON, 0, CONST_ON, 0);
-  // sleep(3);
-  // std::cout << "Light: breath" << std::endl;
-  // bot.SetLightCommand(BREATH, 0, BREATH, 0);
-  // sleep(3);
-  // std::cout << "Light: custom 30-40" << std::endl;
-  // bot.SetLightCommand(CUSTOM, 30, CUSTOM, 40);
-  // sleep(3);
-  // bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
+  std::cout << "Light: const off" << std::endl;
+  bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
+  sleep(3);
+  std::cout << "Light: const on" << std::endl;
+  bot.SetLightCommand(CONST_ON, 0, CONST_ON, 0);
+  sleep(3);
+  std::cout << "Light: breath" << std::endl;
+  bot.SetLightCommand(BREATH, 0, BREATH, 0);
+  sleep(3);
+  std::cout << "Light: custom 30-40" << std::endl;
+  bot.SetLightCommand(CUSTOM, 30, CUSTOM, 40);
+  sleep(3);
+  bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
 
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("robot");
