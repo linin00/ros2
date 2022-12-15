@@ -34,7 +34,7 @@ class IMUPublisher : public rclcpp::Node
 		IMUPublisher() : Node("IMU_publisher")	
 		{
 			fd = open_serial();
-			imu_pub = this->create_publisher<sensor_msgs::msg::Imu>("/Imu_data", 20);
+			imu_pub = this->create_publisher<sensor_msgs::msg::Imu>("/imu", 20);
 			timer_ = this->create_wall_timer(2ms, std::bind(&IMUPublisher::timer_callback, this));
 			printf("talker initialized\n");
 		}
