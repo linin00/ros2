@@ -114,11 +114,12 @@ static void handler(geometry_msgs::msg::Twist::SharedPtr msg) {
 }
 
 int main(int argc, char ** argv) {
-  std::cout << "Light: const off" << std::endl;
-  bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
-  sleep(1);
-  std::cout << "Light: const on" << std::endl;
-  bot.SetLightCommand(CONST_ON, 0, CONST_ON, 0);
+  std::cout << "on" << std::endl;
+  // std::cout << "Light: const off" << std::endl;
+  // bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
+  // sleep(1);
+  // std::cout << "Light: const on" << std::endl;
+  // bot.SetLightCommand(CONST_ON, 0, CONST_ON, 0);
   // sleep(3);
   // std::cout << "Light: breath" << std::endl;
   // bot.SetLightCommand(BREATH, 0, BREATH, 0);
