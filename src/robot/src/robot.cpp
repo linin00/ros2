@@ -1,4 +1,5 @@
 #include "geometry_msgs/msg/twist.hpp"
+#include "std_msgs/msg/string.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <string>
 #include <unistd.h>
@@ -107,12 +108,16 @@ public:
 
 
 static robot bot;
-
+static char trafficLight[10] = "green";
 static void handler(geometry_msgs::msg::Twist::SharedPtr msg) {
+  if (!strcmp(trafficLight, "red")) return; // 红灯停
   bot.SetMotionCommand(msg.get()->linear.x, msg.get()->angular.z);
   bot.PrintStatus();
 }
-
+static void traffic_light_handler(std_msgs::msg::String::SharedPtr msg) {
+  strncpy(trafficLight, msg.get()->data.c_str(), sizeof(trafficLight));
+  printf("traffic light: %s\n", trafficLight);
+}
 int main(int argc, char ** argv) {
   std::cout << "on" << std::endl;
   // std::cout << "Light: const off" << std::endl;
@@ -135,6 +140,11 @@ int main(int argc, char ** argv) {
     "/cmd_vel",
     rclcpp::ParametersQoS(),
     handler
+  );
+  auto suber4TrafficLight = node->create_subscription<std_msgs::msg::String> (
+    "/traffic",
+    rclcpp::ParametersQoS(),
+    traffic_light_handler
   );
   rclcpp::spin(node);
   rclcpp::shutdown();
