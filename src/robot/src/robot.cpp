@@ -110,6 +110,7 @@ public:
 static robot bot;
 static char trafficLight[10] = "green";
 static void handler(geometry_msgs::msg::Twist::SharedPtr msg) {
+  printf("recieved message");
   if (!strcmp(trafficLight, "red")) return; // 红灯停
   bot.SetMotionCommand(msg.get()->linear.x, msg.get()->angular.z);
   bot.PrintStatus();
