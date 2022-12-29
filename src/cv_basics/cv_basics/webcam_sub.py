@@ -66,7 +66,7 @@ class ImageSubscriber(Node):
     t = int(round(t * 1000))
     print(f"fps = {1000. / (t - self.last_t)}")
     self.last_t = t
-    #cv2.imwrite(f"{t}.png", current_frame)
+    cv2.imwrite(f"{t}.png", current_frame)
     cv2.waitKey(1)
     # 转化为灰度图
     gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
@@ -77,6 +77,7 @@ class ImageSubscriber(Node):
     # # 腐蚀，白区域变小
     # dst = cv2.erode(dst, None, iterations=6)
     # cv2.imshow("dst", dst)
+    cv2.imwrite(f"{t}_dst.png", dst)
     # 单看第400行的像素值
     color = dst[400]
     # 找到白色的像素点个数

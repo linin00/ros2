@@ -9,7 +9,8 @@
 
 #include "ugv_sdk/mobile_robot/scout_robot.hpp"
 #include "ugv_sdk/utilities/protocol_detector.hpp"
-
+using std::placeholders::_1;
+using std::placeholders::_2;
 using namespace westonrobot;
 class robot {
 private:
@@ -105,21 +106,39 @@ public:
   }
 };
 
+class Robot : public rclcpp::Node  {
+public: 
+  Robot(std::string name) : Node(name) {
+    suber1 = this->create_subscription<geometry_msgs::msg::Twist> (
+      "/cmd_vel",
+      10,
+      std::bind(&Robot::handler1, this, _1)
+    );
+    suber2 = this->create_subscription<std_msgs::msg::String> (
+      "/traffic",
+      10,
+      std::bind(&Robot::handler2, this, _1)
+    );
+  }
+private:
+  robot bot;
+  char trafficLight[10] = "green";
+  rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr  suber1;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr      suber2;
 
+  void handler1(const geometry_msgs::msg::Twist::SharedPtr msg) {
+    if (!strcmp(trafficLight, "red")) return; // 红灯停
+    bot.SetMotionCommand(msg.get()->linear.x, msg.get()->angular.z);
+    bot.PrintStatus();
+  }
+  void handler2(const std_msgs::msg::String::SharedPtr msg) {
+    strncpy(trafficLight, msg.get()->data.c_str(), 10);
+    printf("traffic light: %s\n", trafficLight);
+  }
+};
 
-static robot bot;
-static char trafficLight[10] = "green";
-static void handler(geometry_msgs::msg::Twist::SharedPtr msg) {
-  printf("recieved message");
-  if (!strcmp(trafficLight, "red")) return; // 红灯停
-  bot.SetMotionCommand(msg.get()->linear.x, msg.get()->angular.z);
-  bot.PrintStatus();
-}
-static void traffic_light_handler(std_msgs::msg::String::SharedPtr msg) {
-  strncpy(trafficLight, msg.get()->data.c_str(), sizeof(trafficLight));
-  printf("traffic light: %s\n", trafficLight);
-}
 int main(int argc, char ** argv) {
+  rclcpp::init(argc, argv);
   std::cout << "on" << std::endl;
   // std::cout << "Light: const off" << std::endl;
   // bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
@@ -135,19 +154,18 @@ int main(int argc, char ** argv) {
   // sleep(3);
   // bot.SetLightCommand(CONST_OFF, 0, CONST_OFF, 0);
 
-  rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared("robot");
-  auto suber = node->create_subscription<geometry_msgs::msg::Twist> (
-    "/cmd_vel",
-    rclcpp::ParametersQoS(),
-    handler
-  );
-  auto suber4TrafficLight = node->create_subscription<std_msgs::msg::String> (
-    "/traffic",
-    rclcpp::ParametersQoS(),
-    traffic_light_handler
-  );
-  rclcpp::spin(node);
+  // auto node = rclcpp::Node::make_shared("robot");
+  // auto suber = node->create_subscription<geometry_msgs::msg::Twist> (
+  //   "/cmd_vel",
+  //   rclcpp::ParametersQoS(),
+  //   handler
+  // );
+  // auto suber4TrafficLight = node->create_subscription<std_msgs::msg::String> (
+  //   "/traffic",
+  //   rclcpp::ParametersQoS(),
+  //   traffic_light_handler
+  // );
+  rclcpp::spin(std::make_shared<Robot>("robot"));
   rclcpp::shutdown();
   return 0;
 }

@@ -4,3 +4,4 @@ install
 log
 src/cv_basics/.DS_Store
 src/cv_basics/resource/cv_basics
+*.png
