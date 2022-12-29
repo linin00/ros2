@@ -99,8 +99,8 @@ class ImageSubscriber(Node):
         # 计算出center与标准中心点的偏移量    
     
         msg = Twist()
-        msg.linear.x = 0.05
-        msg.angular.z = direction / 320. * (-1) / 5
+        msg.linear.x = 0.4
+        msg.angular.z = direction / 320. * (-1)
         self.pub_novel.publish(msg)  #将速度内容发布出去
         print("vel_command = ", msg)
     
