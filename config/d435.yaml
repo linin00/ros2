@@ -21,12 +21,12 @@ camera:
 
         gyro_fps: 0.0
 
-        enable_accel: true
+        enable_accel: false
         enable_color: true
-        enable_depth: true
+        enable_depth: false
         enable_gyro: true
-        enable_infra1: true
-        enable_infra2: true
+        enable_infra1: false
+        enable_infra2: false
 
         enable_pointcloud: false
         filters: ''
